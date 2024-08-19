@@ -1,22 +1,31 @@
+import typescript from '@rollup/plugin-typescript'
+import { readFileSync } from 'fs'
+import { join } from 'path'
+import { cwd } from 'process'
+
+const pkg = JSON.parse(readFileSync(join(cwd(), 'package.json'), 'utf8'))
+
 export default {
-  input: 'dist/esm/index.js',
+  input: 'guest-js/index.ts',
   output: [
     {
-      file: 'dist/plugin.js',
-      format: 'iife',
-      name: 'capacitorStripe',
-      globals: {
-        '@capacitor/core': 'capacitorExports',
-      },
-      sourcemap: true,
-      inlineDynamicImports: true,
+      file: pkg.exports.import,
+      format: 'esm'
     },
     {
-      file: 'dist/plugin.cjs.js',
-      format: 'cjs',
-      sourcemap: true,
-      inlineDynamicImports: true,
-    },
+      file: pkg.exports.require,
+      format: 'cjs'
+    }
   ],
-  external: ['@capacitor/core'],
-};
+  plugins: [
+    typescript({
+      declaration: true,
+      declarationDir: `./${pkg.exports.import.split('/')[0]}`
+    })
+  ],
+  external: [
+    /^@tauri-apps\/api/,
+    ...Object.keys(pkg.dependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {})
+  ]
+}

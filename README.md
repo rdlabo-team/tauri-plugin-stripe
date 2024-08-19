@@ -1,8 +1,10 @@
-<p align="center"><br><img src="https://user-images.githubusercontent.com/236501/85893648-1c92e880-b7a8-11ea-926d-95355b8175c7.png" width="128" height="128" /></p>
+# This is development Repository. Still working on the release.
+
+<p align="center"><br><img src="https://v2.tauri.app/_astro/header.DJC8YrJ3_Z2lir5I.webp" width="256" height="128" /></p>
 
 <h3 align="center">Stripe</h3>
 <p align="center">
-  Capacitor community plugin for native Stripe.
+  Tauri plugin for native Stripe.
 </p>
 
 <p align="center">
@@ -14,33 +16,14 @@
 
 | package name                         | description | path                                                                                                   |
 |--------------------------------------|-------------|--------------------------------------------------------------------------------------------------------|
-| @capacitor-community/stripe          | Support for non-personal payments using Stripe | [/packages/payment](https://github.com/capacitor-community/stripe/tree/main/packages/payment#readme)   |
-| @capacitor-community/stripe-identity | Supports identity verification using Stripe | [/packages/identity](https://github.com/capacitor-community/stripe/tree/main/packages/identity#readme) |
-| @capacitor-community/stripe-terminal | Support for in-person payments using Stripe  | [/packages/terminal](https://github.com/capacitor-community/stripe/tree/main/packages/terminal#readme) |
+| @rdlabo/tauri-plugin-stripe-payment  | Support for non-personal payments using Stripe | [/packages/payment](https://github.com/capacitor-community/stripe/tree/main/packages/payment#readme)   |
+| @rdlabo/tauri-plugin-stripe-identity | [/packages/identity](https://github.com/capacitor-community/stripe/tree/main/packages/identity#readme) |
+| @rdlabo/tauri-plugin-stripe-terminal | Support for in-person payments using Stripe  | [/packages/terminal](https://github.com/capacitor-community/stripe/tree/main/packages/terminal#readme) |
 
 
 ## Hint
 
-### Versions
-
-Users of Capacitor v5 should use version v5 of the Plugin.
-
-```bash
-% npm install @capacitor-community/stripe@5
-% npm install @capacitor-community/stripe-identity@5
-% npm install @capacitor-community/stripe-terminal@5
-```
-
 ### How to use Stripe Android currently package
-
-Capacitor Android 6's default settings is here:
-
-```
-minSdkVersion = 22
-compileSdkVersion = 34
-targetSdkVersion = 34
-```
-
 To use the latest Stripe Android, you need to version these up. To use the latest features, follow these steps.
 
 1. Open `android/variables.gradle` and change sdkVersion version, if need.
@@ -78,22 +61,13 @@ To use the latest Stripe Android, you need to version these up. To use the lates
   }
 ```
 
-Note: `@capacitor-community/stripe-terminal` does not work with the default sdkVersion, so these updates are mandatory. See [/packages/terminal](https://github.com/capacitor-community/stripe/tree/main/packages/terminal#readme) for more information.
-
 
 ## Maintainers
 
 | Maintainer          | GitHub                              | Social                                |
 | ------------------- | ----------------------------------- | ------------------------------------- |
-| Hidetaka Okamoto | [hideokamoto](https://github.com/hideokamoto) | [@hide__dev](https://twitter.com/hide__dev) |
 | Masahiko Sakakibara | [rdlabo](https://github.com/rdlabo) | [@rdlabo](https://twitter.com/rdlabo) |
 
-## Contributors ✨
-<a href="https://github.com/capacitor-community/stripe/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=capacitor-community/stripe" />
-</a>
-
-Made with [contributors-img](https://contrib.rocks).
 
 ## Demo
 
