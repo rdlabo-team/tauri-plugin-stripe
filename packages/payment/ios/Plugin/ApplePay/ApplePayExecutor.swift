@@ -1,5 +1,5 @@
 import Foundation
-import Capacitor
+import Tauri
 import PassKit
 import StripeApplePay
 

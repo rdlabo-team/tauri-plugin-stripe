@@ -1,20 +1,20 @@
 import Foundation
-import Capacitor
-import StripePaymentSheet
-import StripeApplePay
+import UIKit
+import StripeCore
+import Tauri
 
-@objc(StripePlugin)
-public class StripePlugin: CAPPlugin {
+
+class StripePlugin: CAPPlugin {
     private let paymentSheetExecutor = PaymentSheetExecutor()
     private let paymentFlowExecutor = PaymentFlowExecutor()
     private let applePayExecutor = ApplePayExecutor()
 
-    @objc func initialize(_ call: CAPPluginCall) {
+    @objc func initialize(_ call: Invoke) {
         self.paymentSheetExecutor.plugin = self
         self.paymentFlowExecutor.plugin = self
         self.applePayExecutor.plugin = self
 
-        let publishableKey = call.getString("publishableKey") ?? ""
+        let publishableKey = CAPPluginCall(call).getString("publishableKey") ?? ""
 
         if publishableKey == "" {
             call.reject("you must provide publishableKey")
@@ -23,23 +23,23 @@ public class StripePlugin: CAPPlugin {
 
         StripeAPI.defaultPublishableKey = publishableKey
 
-        let stripeAccount = call.getString("stripeAccount") ?? ""
+        let stripeAccount = CAPPluginCall(call).getString("stripeAccount") ?? ""
 
         if stripeAccount != "" {
             STPAPIClient.shared.stripeAccount = stripeAccount
         }
 
-        STPAPIClient.shared.appInfo = STPAppInfo(name: "@capacitor-community/stripe", partnerId: nil, version: nil, url: nil)
+        STPAPIClient.shared.appInfo = STPAppInfo(name: "@rdlabo/stripe-payment", partnerId: nil, version: nil, url: nil)
 
         call.resolve()
     }
 
-    @objc func handleURLCallback(_ call: CAPPluginCall) {
+    @objc func handleURLCallback(_ call: Invoke) {
         self.paymentSheetExecutor.plugin = self
         self.paymentFlowExecutor.plugin = self
         self.applePayExecutor.plugin = self
 
-        let urlString = call.getString("url") ?? ""
+        let urlString = CAPPluginCall(call).getString("url") ?? ""
 
         if urlString == "" {
             call.reject("you must provide url returned from browser")
@@ -58,47 +58,47 @@ public class StripePlugin: CAPPlugin {
 
     }
 
-    @objc func createPaymentSheet(_ call: CAPPluginCall) {
-        self.paymentSheetExecutor.createPaymentSheet(call)
+    @objc func createPaymentSheet(_ call: Invoke) {
+        self.paymentSheetExecutor.createPaymentSheet(CAPPluginCall(call))
     }
 
-    @objc func presentPaymentSheet(_ call: CAPPluginCall) {
-        self.paymentSheetExecutor.presentPaymentSheet(call)
+    @objc func presentPaymentSheet(_ call: Invoke) {
+        self.paymentSheetExecutor.presentPaymentSheet(CAPPluginCall(call))
     }
 
-    @objc func createPaymentFlow(_ call: CAPPluginCall) {
-        self.paymentFlowExecutor.createPaymentFlow(call)
+    @objc func createPaymentFlow(_ call: Invoke) {
+        self.paymentFlowExecutor.createPaymentFlow(CAPPluginCall(call))
     }
 
-    @objc func presentPaymentFlow(_ call: CAPPluginCall) {
-        self.paymentFlowExecutor.presentPaymentFlow(call)
+    @objc func presentPaymentFlow(_ call: Invoke) {
+        self.paymentFlowExecutor.presentPaymentFlow(CAPPluginCall(call))
     }
 
-    @objc func confirmPaymentFlow(_ call: CAPPluginCall) {
-        self.paymentFlowExecutor.confirmPaymentFlow(call)
+    @objc func confirmPaymentFlow(_ call: Invoke) {
+        self.paymentFlowExecutor.confirmPaymentFlow(CAPPluginCall(call))
     }
 
-    @objc func isApplePayAvailable(_ call: CAPPluginCall) {
-        self.applePayExecutor.isApplePayAvailable(call)
+    @objc func isApplePayAvailable(_ call: Invoke) {
+        self.applePayExecutor.isApplePayAvailable(CAPPluginCall(call))
     }
 
-    @objc func createApplePay(_ call: CAPPluginCall) {
-        self.applePayExecutor.createApplePay(call)
+    @objc func createApplePay(_ call: Invoke) {
+        self.applePayExecutor.createApplePay(CAPPluginCall(call))
     }
 
-    @objc func presentApplePay(_ call: CAPPluginCall) {
-        self.applePayExecutor.presentApplePay(call)
+    @objc func presentApplePay(_ call: Invoke) {
+        self.applePayExecutor.presentApplePay(CAPPluginCall(call))
     }
 
-    @objc func isGooglePayAvailable(_ call: CAPPluginCall) {
+    @objc func isGooglePayAvailable(_ call: Invoke) {
         call.unavailable("Not implemented on iOS.")
     }
 
-    @objc func createGooglePay(_ call: CAPPluginCall) {
+    @objc func createGooglePay(_ call: Invoke) {
         call.unavailable("Not implemented on iOS.")
     }
 
-    @objc func presentGooglePay(_ call: CAPPluginCall) {
+    @objc func presentGooglePay(_ call: Invoke) {
         call.unavailable("Not implemented on iOS.")
     }
 
@@ -114,4 +114,6 @@ public class StripePlugin: CAPPlugin {
         }
         return window?.rootViewController
     }
+
+    let bridge: bridgeMember? = bridgeMember()
 }
