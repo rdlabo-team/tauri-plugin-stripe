@@ -28,10 +28,24 @@ pub fn init<R: Runtime, C: DeserializeOwned>(
 pub struct StripePayment<R: Runtime>(PluginHandle<R>);
 
 impl<R: Runtime> StripePayment<R> {
-  pub fn ping(&self, payload: PingRequest) -> crate::Result<PingResponse> {
+  pub fn initialize(&self, payload: InitializeOption) -> crate::Result<()> {
     self
       .0
-      .run_mobile_plugin("ping", payload)
+      .run_mobile_plugin("initialize", payload)
+      .map_err(Into::into)
+  }
+  
+  pub fn createPaymentSheet(&self, payload: CreatePaymentSheetOption) -> crate::Result<()> {
+    self
+      .0
+      .run_mobile_plugin("createPaymentSheet", payload)
+      .map_err(Into::into)
+  }
+
+  pub fn presentPaymentSheet(&self, payload: ()) -> crate::Result<PaymentSheetResultInterface> {
+    self
+      .0
+      .run_mobile_plugin("presentPaymentSheet", payload)
       .map_err(Into::into)
   }
 }

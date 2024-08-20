@@ -295,6 +295,48 @@
       "type": "string",
       "oneOf": [
         {
+          "description": "allow-createPaymentSheet -> Enables the createPaymentSheet command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-createPaymentSheet"
+          ]
+        },
+        {
+          "description": "deny-createPaymentSheet -> Denies the createPaymentSheet command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-createPaymentSheet"
+          ]
+        },
+        {
+          "description": "allow-handleURLCallback -> Enables the handleURLCallback command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-handleURLCallback"
+          ]
+        },
+        {
+          "description": "deny-handleURLCallback -> Denies the handleURLCallback command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-handleURLCallback"
+          ]
+        },
+        {
+          "description": "allow-initialize -> Enables the initialize command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-initialize"
+          ]
+        },
+        {
+          "description": "deny-initialize -> Denies the initialize command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-initialize"
+          ]
+        },
+        {
           "description": "allow-ping -> Enables the ping command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -306,6 +348,20 @@
           "type": "string",
           "enum": [
             "deny-ping"
+          ]
+        },
+        {
+          "description": "allow-presentPaymentSheet -> Enables the presentPaymentSheet command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-presentPaymentSheet"
+          ]
+        },
+        {
+          "description": "deny-presentPaymentSheet -> Denies the presentPaymentSheet command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-presentPaymentSheet"
           ]
         }
       ]

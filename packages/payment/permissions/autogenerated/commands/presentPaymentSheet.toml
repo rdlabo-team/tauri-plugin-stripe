@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-presentPaymentSheet"
+description = "Enables the presentPaymentSheet command without any pre-configured scope."
+commands.allow = ["presentPaymentSheet"]
+
+[[permission]]
+identifier = "deny-presentPaymentSheet"
+description = "Denies the presentPaymentSheet command without any pre-configured scope."
+commands.deny = ["presentPaymentSheet"]
