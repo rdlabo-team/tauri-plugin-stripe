@@ -7,7 +7,6 @@ use tauri::{
 
 pub use models::*;
 
-#[cfg(mobile)]
 mod mobile;
 
 mod commands;
@@ -16,9 +15,6 @@ mod models;
 
 pub use error::{Error, Result};
 
-#[cfg(desktop)]
-
-#[cfg(mobile)]
 use mobile::StripePayment;
 
 /// Extensions to [`tauri::App`], [`tauri::AppHandle`] and [`tauri::Window`] to access the stripe-payment APIs.
@@ -35,9 +31,8 @@ impl<R: Runtime, T: Manager<R>> crate::StripePaymentExt<R> for T {
 /// Initializes the plugin.
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
   Builder::new("stripe-payment")
-    .invoke_handler(tauri::generate_handler![commands::initialize])
+    .invoke_handler(tauri::generate_handler![commands::initialize, commands::createPaymentSheet, commands::presentPaymentSheet])
     .setup(|app, api| {
-      #[cfg(mobile)]
       let stripe_payment = mobile::init(app, api)?;
       app.manage(stripe_payment);
       Ok(())

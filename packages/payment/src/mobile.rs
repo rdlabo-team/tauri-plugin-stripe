@@ -10,7 +10,7 @@ use crate::models::*;
 const PLUGIN_IDENTIFIER: &str = "";
 
 #[cfg(target_os = "ios")]
-tauri::ios_plugin_binding!(init_plugin_stripe-payment);
+tauri::ios_plugin_binding!(init_plugin_stripe_payment);
 
 // initializes the Kotlin or Swift plugin classes
 pub fn init<R: Runtime, C: DeserializeOwned>(
@@ -20,7 +20,7 @@ pub fn init<R: Runtime, C: DeserializeOwned>(
   #[cfg(target_os = "android")]
   let handle = api.register_android_plugin(PLUGIN_IDENTIFIER, "ExamplePlugin")?;
   #[cfg(target_os = "ios")]
-  let handle = api.register_ios_plugin(init_plugin_stripe-payment)?;
+  let handle = api.register_ios_plugin(init_plugin_stripe_payment)?;
   Ok(StripePayment(handle))
 }
 
@@ -34,7 +34,7 @@ impl<R: Runtime> StripePayment<R> {
       .run_mobile_plugin("initialize", payload)
       .map_err(Into::into)
   }
-  
+
   pub fn createPaymentSheet(&self, payload: CreatePaymentSheetOption) -> crate::Result<()> {
     self
       .0
@@ -42,7 +42,7 @@ impl<R: Runtime> StripePayment<R> {
       .map_err(Into::into)
   }
 
-  pub fn presentPaymentSheet(&self, payload: ()) -> crate::Result<PaymentSheetResultInterface> {
+  pub fn presentPaymentSheet(&self, payload: VoidOption) -> crate::Result<PaymentSheetResultInterface> {
     self
       .0
       .run_mobile_plugin("presentPaymentSheet", payload)

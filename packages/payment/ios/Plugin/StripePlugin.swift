@@ -3,13 +3,18 @@ import UIKit
 import StripeCore
 import Tauri
 
+class Argssss: Decodable {
+    // InitializeOption
+    let publishableKey: String
+}
+
 
 class StripePlugin: CAPPlugin {
     private let paymentSheetExecutor = PaymentSheetExecutor()
     private let paymentFlowExecutor = PaymentFlowExecutor()
     private let applePayExecutor = ApplePayExecutor()
 
-    @objc func initialize(_ call: Invoke) {
+    @objc func initialize(_ call: Invoke) throws {
         self.paymentSheetExecutor.plugin = self
         self.paymentFlowExecutor.plugin = self
         self.applePayExecutor.plugin = self
@@ -17,7 +22,7 @@ class StripePlugin: CAPPlugin {
         let publishableKey = CAPPluginCall(call).getString("publishableKey") ?? ""
 
         if publishableKey == "" {
-            call.reject("you must provide publishableKey")
+            call.reject("you must provide publishableKey11")
             return
         }
 
@@ -58,7 +63,7 @@ class StripePlugin: CAPPlugin {
 
     }
 
-    @objc func createPaymentSheet(_ call: Invoke) {
+    @objc func createPaymentSheet(_ call: Invoke) throws {
         self.paymentSheetExecutor.createPaymentSheet(CAPPluginCall(call))
     }
 

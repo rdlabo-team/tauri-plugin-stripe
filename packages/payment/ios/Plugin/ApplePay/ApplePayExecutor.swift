@@ -169,7 +169,7 @@ extension ApplePayExecutor {
                 call.resolve(["paymentResult": ApplePayEvents.Completed.rawValue])
                 break
             case .error:
-                self.plugin?.notifyListeners(ApplePayEvents.Failed.rawValue, data: ["error": error?.localizedDescription])
+                self.plugin?.notifyListeners(ApplePayEvents.Failed.rawValue, data: ["error": error?.localizedDescription as! String])
                 call.resolve(["paymentResult": ApplePayEvents.Failed.rawValue])
                 break
             case .userCancellation:

@@ -23,7 +23,7 @@ pub(crate) async fn createPaymentSheet<R: Runtime>(
 #[command]
 pub(crate) async fn presentPaymentSheet<R: Runtime>(
     app: AppHandle<R>,
-    payload: (),
+    payload: VoidOption,
 ) -> Result<PaymentSheetResultInterface> {
     app.stripe_payment().presentPaymentSheet(payload)
 }

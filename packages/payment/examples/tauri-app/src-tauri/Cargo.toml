@@ -20,3 +20,7 @@ tauri-build = { version = "2.0.0-rc.2", default-features = false , features = []
 [dependencies]
 tauri = { version = "2.0.0-rc.2", features = [] }
 tauri-plugin-stripe-payment = { path = "../../../" }
+tauri-plugin-log = "2.0.0-rc"
+
+[patch.crates-io]
+swift-rs = { git = "https://github.com/guillemcordoba/swift-rs", branch = "main" }

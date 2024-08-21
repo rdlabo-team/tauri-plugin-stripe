@@ -21,7 +21,7 @@ class Args: Decodable {
     // CreatePaymentSheetOption
     let paymentIntentClientSecret: String?
     let setupIntentClientSecret: String?
-    let billingDetailsCollectionConfiguration: BillingDetailsCollectionConfiguration
+    let billingDetailsCollectionConfiguration: BillingDetailsCollectionConfiguration?
     let customerEphemeralKeySecret: String?
     let customerId: String?
     let enableApplePay: Bool?
@@ -36,7 +36,7 @@ class Args: Decodable {
     
     // CreateApplePayOption
 //    let paymentIntentClientSecret: String?
-    var paymentSummaryItems: [PaymentSummaryItem]
+    var paymentSummaryItems: [PaymentSummaryItem]?
     let merchantIdentifier: String?
 //    let countryCode: String?
     let currency: String?
@@ -47,7 +47,6 @@ class Args: Decodable {
 
 
 typealias CAPPlugin = Plugin
-//typealias CAPPluginCall = Invoke
 
 extension StripePlugin {
     func notifyListeners(_ event: String, data: JSObject) {
@@ -83,7 +82,7 @@ class CAPPluginCall {
     func getBool(_ key: String) -> Bool? {
         do {
             let args = try self.invoke.parseArgs(Args.self);
-            return getValueFromParsedArgs(parsedArgs: args, key: key) as! Bool?
+            return try getValueFromParsedArgs(parsedArgs: args, key: key) as? Bool
         } catch {
             return nil
         }
@@ -92,7 +91,7 @@ class CAPPluginCall {
     func getBool(_ key: String, _ defaultValue: Bool) -> Bool {
         do {
             let args = try self.invoke.parseArgs(Args.self);
-            if let value = getValueFromParsedArgs(parsedArgs: args, key: key) as! Bool? {
+            if let value = try getValueFromParsedArgs(parsedArgs: args, key: key) as! Bool? {
                 return value
             } else {
                 return defaultValue
@@ -105,7 +104,7 @@ class CAPPluginCall {
     func getString(_ key: String) -> String? {
         do {
             let args = try self.invoke.parseArgs(Args.self);
-            return getValueFromParsedArgs(parsedArgs: args, key: key) as! String?
+            return try getValueFromParsedArgs(parsedArgs: args, key: key) as! String?
         } catch {
             return nil
         }
@@ -114,7 +113,7 @@ class CAPPluginCall {
     func getString(_ key: String, _ defaultValue: String) -> String {
         do {
             let args = try self.invoke.parseArgs(Args.self);
-            if let value = getValueFromParsedArgs(parsedArgs: args, key: key) as! String? {
+            if let value = try getValueFromParsedArgs(parsedArgs: args, key: key) as! String? {
                 return value
             } else {
                 return defaultValue
@@ -128,7 +127,7 @@ class CAPPluginCall {
     func getInt(_ key: String) -> Int? {
         do {
             let args = try self.invoke.parseArgs(Args.self);
-            return getValueFromParsedArgs(parsedArgs: args, key: key) as! Int?
+            return try getValueFromParsedArgs(parsedArgs: args, key: key) as! Int?
         } catch {
             return nil
         }
@@ -137,7 +136,7 @@ class CAPPluginCall {
     func getInt(_ key: String, _ defaultValue: Int) -> Int {
         do {
             let args = try self.invoke.parseArgs(Args.self);
-            if let value = getValueFromParsedArgs(parsedArgs: args, key: key) as! Int? {
+            if let value = try getValueFromParsedArgs(parsedArgs: args, key: key) as! Int? {
                 return value
             } else {
                 return defaultValue
@@ -150,7 +149,7 @@ class CAPPluginCall {
     func getObject(_ key: String) -> JSObject? {
         do {
             let args = try self.invoke.parseArgs(Args.self);
-            return getValueFromParsedArgs(parsedArgs: args, key: key) as! JSObject?
+            return try getValueFromParsedArgs(parsedArgs: args, key: key) as! JSObject?
         } catch {
             return nil
         }
@@ -159,7 +158,7 @@ class CAPPluginCall {
     func getObject(_ key: String, _ defaultValue: JSObject) -> JSObject {
         do {
             let args = try self.invoke.parseArgs(Args.self);
-            if let value = getValueFromParsedArgs(parsedArgs: args, key: key) as! JSObject? {
+            if let value = try getValueFromParsedArgs(parsedArgs: args, key: key) as! JSObject? {
                 return value
             } else {
                 return defaultValue
@@ -172,7 +171,7 @@ class CAPPluginCall {
     func getArray(_ key: String) -> JSArray? {
         do {
             let args = try self.invoke.parseArgs(Args.self);
-            return getValueFromParsedArgs(parsedArgs: args, key: key) as! JSArray?
+            return try getValueFromParsedArgs(parsedArgs: args, key: key) as! JSArray?
         } catch {
             return nil
         }
@@ -181,7 +180,7 @@ class CAPPluginCall {
     func getArray(_ key: String, _ defaultValue: JSArray) -> JSArray {
         do {
             let args = try self.invoke.parseArgs(Args.self);
-            if let value = getValueFromParsedArgs(parsedArgs: args, key: key) as! JSArray? {
+            if let value = try getValueFromParsedArgs(parsedArgs: args, key: key) as! JSArray? {
                 return value
             } else {
                 return defaultValue
@@ -194,10 +193,13 @@ class CAPPluginCall {
     func getArray<T>(_ key: String, _ ofType: T.Type) -> [T]? {
         return getArray(key) as? [T]
     }
-
     
-    func resolve(_ response: JSObject = [:]) {
-        return self.invoke.resolve(response)
+    public func resolve() {
+        invoke.resolve()
+    }
+    
+    func resolve(_ response: JSObject) {
+        return invoke.resolve(response)
     }
     
     func reject(_ message: String) {
@@ -220,13 +222,13 @@ class CAPPluginCall {
         return invoke.reject(message)
     }
     
-    private func getValueFromParsedArgs(parsedArgs: Args, key: String) -> Any? {
+    private func getValueFromParsedArgs(parsedArgs: Args, key: String) throws -> Any {
         let mirror = Mirror(reflecting: parsedArgs)
         for child in mirror.children {
             if child.label == key {
                 return child.value
             }
         }
-        return nil
+        throw NSError(domain: "not found key", code: -1, userInfo: nil)
     }
 }
