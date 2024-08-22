@@ -199,6 +199,9 @@ class CAPPluginCall {
     }
     
     func resolve(_ response: JSObject) {
+        if (response.isEmpty) {
+          resolve()
+        }
         return invoke.resolve(response)
     }
     

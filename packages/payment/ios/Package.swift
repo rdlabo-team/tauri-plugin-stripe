@@ -27,7 +27,7 @@ let package = Package(
             dependencies: [
                 .byName(name: "Tauri"),
                 .product(name: "StripePaymentSheet", package: "stripe-ios-spm"),
-                .product(name: "StripeApplePay", package: "stripe-ios-spm")
+                .product(name: "StripeApplePay", package: "stripe-ios-spm"),
             ],
             path: "Plugin")
     ]
