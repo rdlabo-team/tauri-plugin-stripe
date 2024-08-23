@@ -19,6 +19,8 @@ export async function create(options: CreateIdentityVerificationSheetOption): Pr
   });
 }
 
-export async function present(): Promise<{ identityVerificationResult: IdentityVerificationSheetResultInterface; }> {
-  return await invoke<{ identityVerificationResult: IdentityVerificationSheetResultInterface; }>('plugin:stripe-identity|present');
+export async function present(option: { void: true }): Promise<{ identityVerificationResult: IdentityVerificationSheetResultInterface; }> {
+  return await invoke<{ identityVerificationResult: IdentityVerificationSheetResultInterface; }>('plugin:stripe-identity|present', {
+    payload: option,
+  });
 }

@@ -1,6 +1,6 @@
 <script>
   import Greet from './lib/Greet.svelte'
-  import { ping } from 'tauri-plugin-stripe-identity-api'
+  import { initialize, create, present } from 'tauri-plugin-stripe-identity-api'
 
 	let response = ''
 
@@ -8,8 +8,25 @@
 		response += `[${new Date().toLocaleTimeString()}] ` + (typeof returnValue === 'string' ? returnValue : JSON.stringify(returnValue)) + '<br>'
 	}
 
-	function _ping() {
-		ping("Pong!").then(updateResponse).catch(updateResponse)
+	async function _ping() {
+    await initialize({
+      publishableKey:
+        'pk_test_51MmARtKzMYim9cy3tOI5vOdHbai4G26V1AiDJmiE4aiAXc8BaSzh9Z0b0f8Novn0Jyyi8JqNdzLzcI2rUGT4g8ct00gfUVdLuM',
+    });
+    const { verficationSessionId, ephemeralKeySecret, clientSecret } = await fetch('https://j3x0ln9gj7.execute-api.ap-northeast-1.amazonaws.com/dev/identify',{
+      method: "POST",
+    }).then(res => res.json());
+
+    console.log({ verficationSessionId, ephemeralKeySecret, clientSecret });
+
+    await create({
+      ephemeralKeySecret,
+      clientSecret,
+      verificationId: verficationSessionId,
+    });
+
+    const result = await present({void: true});
+    console.log(result);
 	}
 </script>
 

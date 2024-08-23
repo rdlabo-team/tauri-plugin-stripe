@@ -18,3 +18,11 @@ pub struct CreateIdentityVerificationSheetOption {
   pub ephemeralKeySecret: Option<String>,
   pub clientSecret: Option<String>,
 }
+
+#[derive(Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub enum IdentityVerificationSheetResultInterface {
+    identityVerificationSheetCompleted,
+    identityVerificationSheetCanceled,
+    identityVerificationSheetFailed,
+}

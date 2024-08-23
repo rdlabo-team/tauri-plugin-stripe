@@ -12,7 +12,7 @@ class StripeIdentityPlugin: CAPPlugin {
         self.implementation.initialize(CAPPluginCall(call))
     }
 
-    @objc func create(_ call: Invoke) {
+    @objc func create(_ call: Invoke) throws {
         self.implementation.create(CAPPluginCall(call))
     }
 

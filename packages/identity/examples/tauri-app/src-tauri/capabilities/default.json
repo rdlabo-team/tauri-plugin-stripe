@@ -1,5 +1,5 @@
 {
-  "$schema": "../gen/schemas/desktop-schema.json",
+  "$schema": "../gen/schemas/mobile-schema.json",
   "identifier": "default",
   "description": "enables the default permissions",
   "windows": [
@@ -7,6 +7,8 @@
   ],
   "permissions": [
     "core:default",
-    "stripe-identity:default"
+    "stripe-identity:allow-create",
+    "stripe-identity:allow-initialize",
+    "stripe-identity:allow-present"
   ]
 }

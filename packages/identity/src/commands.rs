@@ -24,6 +24,6 @@ pub(crate) async fn create<R: Runtime>(
 pub(crate) async fn present<R: Runtime>(
     app: AppHandle<R>,
     payload: VoidOption,
-) -> Result<PaymentSheetResultInterface> {
-    app.stripe_identity().presentPaymentSheet(payload)
+) -> Result<IdentityVerificationSheetResultInterface> {
+    app.stripe_identity().present(payload)
 }

@@ -35,14 +35,14 @@ impl<R: Runtime> StripeIdentity<R> {
       .map_err(Into::into)
   }
 
-  pub fn createPaymentSheet(&self, payload: CreateIdentityVerificationSheetOption) -> crate::Result<()> {
+  pub fn create(&self, payload: CreateIdentityVerificationSheetOption) -> crate::Result<()> {
     self
       .0
       .run_mobile_plugin("create", payload)
       .map_err(Into::into)
   }
 
-  pub fn presentPaymentSheet(&self, payload: VoidOption) -> crate::Result<()> {
+  pub fn present(&self, payload: VoidOption) -> crate::Result<IdentityVerificationSheetResultInterface> {
     self
       .0
       .run_mobile_plugin("present", payload)
