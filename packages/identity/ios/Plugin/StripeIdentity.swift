@@ -1,5 +1,5 @@
 import Foundation
-import Capacitor
+import UIKit
 import StripeIdentity
 
 @objc public class StripeIdentity: NSObject {

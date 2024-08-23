@@ -3,11 +3,6 @@ import UIKit
 import StripeCore
 import Tauri
 
-class Argssss: Decodable {
-    // InitializeOption
-    let publishableKey: String
-}
-
 
 class StripePlugin: CAPPlugin {
     private let paymentSheetExecutor = PaymentSheetExecutor()

@@ -1,32 +1,23 @@
 import Foundation
-import Capacitor
 import StripeIdentity
 import PassKit
+import Tauri
 
-/**
- * Please read the Capacitor iOS Plugin Development Guide
- * here: https://capacitorjs.com/docs/plugins/ios
- */
-@objc(StripeIdentityPlugin)
-public class StripeIdentityPlugin: CAPPlugin {
+class StripeIdentityPlugin: CAPPlugin {
     private let implementation = StripeIdentity()
 
-    override public func load() {
-        super.load()
+    @objc func initialize(_ call: Invoke) {
         self.implementation.plugin = self
-        STPAPIClient.shared.appInfo = STPAppInfo(name: "@capacitor-community/stripe-identity", partnerId: nil, version: nil, url: nil)
+        STPAPIClient.shared.appInfo = STPAppInfo(name: "@rdlabo/tauri-plugin-stripe-identity", partnerId: nil, version: nil, url: nil)
+        self.implementation.initialize(CAPPluginCall(call))
     }
 
-    @objc func initialize(_ call: CAPPluginCall) {
-        self.implementation.initialize(call)
+    @objc func create(_ call: Invoke) {
+        self.implementation.create(CAPPluginCall(call))
     }
 
-    @objc func create(_ call: CAPPluginCall) {
-        self.implementation.create(call)
-    }
-
-    @objc func present(_ call: CAPPluginCall) {
-        self.implementation.present(call)
+    @objc func present(_ call: Invoke) {
+        self.implementation.present(CAPPluginCall(call))
     }
 
     func getRootVC() -> UIViewController? {
@@ -41,4 +32,6 @@ public class StripeIdentityPlugin: CAPPlugin {
         }
         return window?.rootViewController
     }
+    
+    let bridge: bridgeMember? = bridgeMember()
 }
