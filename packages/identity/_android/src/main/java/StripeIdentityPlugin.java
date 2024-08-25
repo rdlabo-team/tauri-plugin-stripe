@@ -1,12 +1,12 @@
-package com.getcapacitor.community.stripe.identity;
+package com.plugin.stripeIdentity
 
 import android.content.ContentResolver;
 import android.content.res.Resources;
 import android.net.Uri;
-import com.getcapacitor.Plugin;
-import com.getcapacitor.PluginCall;
-import com.getcapacitor.PluginMethod;
-import com.getcapacitor.annotation.CapacitorPlugin;
+
+
+
+
 import com.stripe.android.identity.IdentityVerificationSheet;
 
 @CapacitorPlugin(name = "StripeIdentity")

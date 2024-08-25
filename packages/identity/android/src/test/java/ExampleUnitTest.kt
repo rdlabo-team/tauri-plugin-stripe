@@ -1,4 +1,4 @@
-package com.plugin.stripe-identity
+package com.plugin.stripe.identity
 
 import org.junit.Test
 

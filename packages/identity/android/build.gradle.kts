@@ -1,10 +1,10 @@
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.android") version "2.0.20"
 }
 
 android {
-    namespace = "com.plugin.stripe-identity"
+    namespace = "com.plugin.stripe.identity"
     compileSdk = 34
 
     defaultConfig {
@@ -43,4 +43,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation(project(":tauri-android"))
     implementation("com.stripe:identity:20.48.5")
+    implementation("com.google.android.gms:play-services-wallet:19.4.0")
 }

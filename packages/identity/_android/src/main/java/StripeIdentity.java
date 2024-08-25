@@ -1,12 +1,12 @@
-package com.getcapacitor.community.stripe.identity;
+package com.plugin.stripeIdentity;
 
 import android.app.Activity;
 import android.content.Context;
 import androidx.core.util.Supplier;
-import com.getcapacitor.Bridge;
-import com.getcapacitor.JSObject;
-import com.getcapacitor.Logger;
-import com.getcapacitor.PluginCall;
+
+
+
+
 import com.getcapacitor.community.stripe.identity.models.Executor;
 import com.google.android.gms.common.util.BiConsumer;
 import com.stripe.android.identity.IdentityVerificationSheet;

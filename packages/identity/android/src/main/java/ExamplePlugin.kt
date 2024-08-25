@@ -1,4 +1,4 @@
-package com.plugin.stripeIdentity
+package com.plugin.stripe.identity
 
 import android.app.Activity
 import app.tauri.annotation.Command
